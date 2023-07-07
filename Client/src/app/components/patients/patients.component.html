@@ -1,0 +1,43 @@
+<table class="container patients-content">
+    <tr>
+        <td id="patients-1" class="{{pat1expand}}">
+            <table class="table table-hover pat1table">
+                <thead>
+                <tr class="table-primary">
+                <th scope="col" *ngFor="let patientcol of patientcols" class="{{patientcol.colclass}}">
+                    {{patientcol.colname}}<br />
+                    <input type="text" class="{{patientcol.filter}}" />
+                    <i class="bi bi-sort-{{patientcol.sortorder}} clickable" (click)="sortPatients(patientcol.colid, patientcol.sortorder)"></i>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clickable" *ngFor="let pat of pat_data" (click)="onShowDetails(pat)" class="{{pat.rowclass}}">
+                <td *ngFor="let patientcol of patientcols" class="{{patientcol.colclass}}">{{pat[patientcol.colid]}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="onAddPatient()"></i></div>
+        </td>
+        <td id="patients-toggle" class="clickable {{pat2expand}}" (click)="patientsToggle()"><i class="bi bi-chevron-double-right"></i></td>
+        <td id="patients-2" class="{{pat2expand}}">
+            <table class="data-info">
+                <tr id="data-info-manage">
+                  <td colspan="3">
+                    <i class="bi {{editPatButton?'bi-save':'bi-pencil-square'}} clickable" (click)="onEditPatient(editPatButton?'save':'edit')"></i>
+                    <i class="bi bi-x-octagon clickable {{editPatButton?'showbutton':'hidebutton'}}" (click)="onEditPatient('cancel')"></i>
+                  </td>
+                </tr>
+                <tr *ngFor="let patfield of patdetails">
+                  <td class="infolabel">{{patfield.labelname}}</td>
+                  <td colspan="2" [ngSwitch]="patfield.fieldtype">
+                    <span class="infovalue {{patEditable}}">{{slctd_pat[patfield.colid]}}</span>
+                    <textarea *ngSwitchCase="'textarea'" id="dform-{{patfield.field_id}}" class="form-control {{patEditable}}" [(ngModel)]="temp_pat[patfield.colid]" ></textarea>
+                    <select *ngSwitchCase="'select'" id="dform-{{patfield.field_id}}" class="form-select {{patEditable}}" [(ngModel)]="temp_pat[patfield.colid]" ></select>
+                    <input *ngSwitchDefault id="pform-{{patfield.field_id}}" type="{{patfield.field_type}}" class="form-control {{patEditable}}" [(ngModel)]="temp_pat[patfield.colid]" />
+                  </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

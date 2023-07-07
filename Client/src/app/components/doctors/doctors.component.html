@@ -1,0 +1,43 @@
+<table class="container doctors-content">
+    <tr>
+        <td id="doctors-1" class="{{doc1expand}}">
+            <table class="table table-hover doc1table">
+                <thead>
+                <tr class="table-primary">
+                <th scope="col" *ngFor="let doctorcol of doctorcols" class="{{doctorcol.colclass}}">
+                    {{doctorcol.colname}}<br />
+                    <input type="text" class="{{doctorcol.filter}}" />
+                    <i class="bi bi-sort-{{doctorcol.sortorder}} clickable" (click)="sortDoctors(doctorcol.colid, doctorcol.sortorder)"></i>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clickable" *ngFor="let doc of doc_data" (click)="onShowDetails(doc)" class="{{doc.rowclass}}">
+                <td *ngFor="let doctorcol of doctorcols" class="{{doctorcol.colclass}}">{{doc[doctorcol.colid]}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="onAddDoctor()"></i></div>
+        </td>
+        <td id="doctors-toggle" class="clickable {{doc2expand}}" (click)="doctorsToggle()"><i class="bi bi-chevron-double-right"></i></td>
+        <td id="doctors-2" class="{{doc2expand}}">
+            <table class="data-info">
+                <tr id="data-info-manage">
+                  <td colspan="3">
+                    <i class="bi {{editDocButton?'bi-save':'bi-pencil-square'}} clickable" (click)="onEditDoctor(editDocButton?'save':'edit')"></i>
+                    <i class="bi bi-x-octagon clickable {{editDocButton?'showbutton':'hidebutton'}}" (click)="onEditDoctor('cancel')"></i>
+                  </td>
+                </tr>
+                <tr *ngFor="let docfield of docdetails">
+                  <td class="infolabel">{{docfield.labelname}}</td>
+                  <td colspan="2" [ngSwitch]="docfield.fieldtype">
+                    <span class="infovalue {{docEditable}}">{{slctd_doc[docfield.colid]}}</span>
+                    <textarea *ngSwitchCase="'textarea'" id="dform-{{docfield.field_id}}" class="form-control {{docEditable}}" [(ngModel)]="temp_doc[docfield.colid]" ></textarea>
+                    <select *ngSwitchCase="'select'" id="dform-{{docfield.field_id}}" class="form-select {{docEditable}}" [(ngModel)]="temp_doc[docfield.colid]" ></select>
+                    <input *ngSwitchDefault id="pform-{{docfield.field_id}}" type="{{docfield.field_type}}" class="form-control {{docEditable}}" [(ngModel)]="temp_doc[docfield.colid]" />
+                  </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

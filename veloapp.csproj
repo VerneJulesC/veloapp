@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\client\3rdpartylicenses.txt" />
+    <None Include="wwwroot\client\assets\google-map-address-location.jpg" />
+    <None Include="wwwroot\client\assets\rv.png" />
+    <None Include="wwwroot\client\assets\rv.svg" />
+    <None Include="wwwroot\client\assets\world_map_placeholder.svg" />
+    <None Include="wwwroot\client\favicon.ico" />
+    <None Include="wwwroot\client\index.html" />
+    <None Include="wwwroot\client\main.28ea551953863851.js" />
+    <None Include="wwwroot\client\polyfills.810a57a375fa7e67.js" />
+    <None Include="wwwroot\client\runtime.e3890858c6314763.js" />
+    <None Include="wwwroot\client\styles.8c09468ccfc41431.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+</Project>

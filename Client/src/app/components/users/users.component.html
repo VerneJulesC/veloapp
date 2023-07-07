@@ -1,0 +1,53 @@
+<table class="container users-content">
+    <tr>
+        <td id="users-1" class="{{user1expand}}">
+            <table class="table table-hover user1table">
+                <thead>
+                <tr class="table-primary">
+                <th scope="col" *ngFor="let usercol of usercols" class="{{usercol.colclass}}">
+                    {{usercol.colname}}<br />
+                    <input type="text" class="{{usercol.filter}}" />
+                    <i class="bi bi-sort-{{usercol.sortorder}} clickable" (click)="sortUsers(usercol.colid, usercol.sortorder)"></i>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clickable" *ngFor="let user of user_data" (click)="onShowDetails(user)" class="{{user.rowclass}}">
+                <td *ngFor="let usercol of usercols" class="{{usercol.colclass}}">{{user[usercol.colid]}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="onAddUser()"></i></div>
+        </td>
+        <td id="users-toggle" class="clickable {{user2expand}}" (click)="usersToggle()"><i class="bi bi-chevron-double-right"></i></td>
+        <td id="users-2" class="{{user2expand}}">
+            <table class="data-info">
+                <tr id="data-info-manage">
+                  <td colspan="3">
+                    <i class="bi {{editUserButton?'bi-save':'bi-pencil-square'}} clickable" (click)="onEditUser(editUserButton?'save':'edit')"></i>
+                    <i class="bi bi-x-octagon clickable {{editUserButton?'showbutton':'hidebutton'}}" (click)="onEditUser('cancel')"></i>
+                  </td>
+                </tr>
+                <tr *ngFor="let userfield of userdetails">
+                  <td class="infolabel">{{userfield.labelname}}</td>
+                  <td colspan="2" [ngSwitch]="userfield.fieldtype">
+                    <span class="infovalue {{userEditable}}">{{slctd_user[userfield.colid]}}</span>
+                    <div class="{{userEditable}}" *ngIf="userfield.colid==='roles'; else notroles">
+                        <div *ngFor="let srole of temproles"><input type="checkbox" name="dform-{{userfield.colid}}" [(ngModel)]="srole.checked" (change)="selectedRoles()" /><label for="dform-{{userfield.colid}}">{{srole.rolename}}</label><i *ngIf="srole.rolename==='doctor'" class="bi bi-binoculars editbutton clickable"></i></div>
+                        <!-- <input type="checkbox" name="dform-{{userfield.colid}}" {{(slctd_user["roles"].some((s:string) => s==="admin")?"checked":"")}}><label for="dform-{{userfield.colid}}" value="admin">Admin</label>
+                        <input type="checkbox" name="dform-{{userfield.colid}}" {{(slctd_user["roles"].some((s:string) => s==="doctor")?"checked":"")}}><label for="dform-{{userfield.colid}}" value="doctor">Doctor</label> -->
+                    </div>
+                    <ng-template #notroles>
+                        <div *ngIf="userfield.editable; else uneditablefield">
+                            <textarea *ngSwitchCase="'textarea'" id="dform-{{userfield.colid}}" class="form-control {{userEditable}}" [(ngModel)]="temp_user[userfield.colid]" ></textarea>
+                            <select *ngSwitchCase="'select'" id="dform-{{userfield.colid}}" class="form-select {{userEditable}}" [(ngModel)]="temp_user[userfield.colid]" ></select>
+                            <input *ngSwitchDefault id="pform-{{userfield.colid}}" type="{{userfield.field_type}}" class="form-control {{userEditable}}" [(ngModel)]="temp_user[userfield.colid]" />
+                        </div>
+                        <ng-template #uneditablefield><span class=" {{userEditable}}">{{slctd_user[userfield.colid]}}</span></ng-template>
+                    </ng-template>
+                  </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

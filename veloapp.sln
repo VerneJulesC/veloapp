@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "veloapp", "veloapp.csproj", "{1F6D6803-8BEE-408E-8193-58B9AAA82370}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F6D6803-8BEE-408E-8193-58B9AAA82370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6D6803-8BEE-408E-8193-58B9AAA82370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6D6803-8BEE-408E-8193-58B9AAA82370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6D6803-8BEE-408E-8193-58B9AAA82370}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E54E1CD0-B6FE-46CB-8428-EEAC3B51B0DF}
+	EndGlobalSection
+EndGlobal

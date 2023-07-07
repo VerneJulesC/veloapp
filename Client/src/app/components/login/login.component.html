@@ -1,0 +1,16 @@
+<div class="logindiv {{loginuser.showlogin?'showlogin':'hidelogin'}}">
+    <div class="card border-primary mb-3">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+            <form class="loginform" (submit)="submitLogin()">
+                <fieldset>
+                    <label for="username" class="form-label mt-4">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="loginuser.username" placeholder="Enter username">
+                    <label for="password" class="form-label mt-4">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="loginuser.password" placeholder="Password">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,27 @@
+<div id="facilitydiv">
+    <div class="facilitysubdiv">
+        <h3 class="card-header">Facility Details</h3>
+        <div class="card-body">
+            <form class="facilityform">
+                <fieldset>
+                    <div *ngFor="let facfield of facdetails">
+                        <div *ngIf="facfield.editable; else uneditable">
+                            <label for="{{facfield.colid}}" class="form-label mt-4">{{facfield.labelname}}</label>
+                            <div *ngIf="facfield.fieldtype==='textarea'; else nontextarea">
+                                <textarea id="{{facfield.colid}}" class="form-control"></textarea>
+                            </div>
+                            <ng-template #nontextarea>
+                                <input id="{{facfield.colid}}" name="{{facfield.colid}}" type="{{facfield.fieldtype}}" class="form-control" />
+                            </ng-template>
+                        </div>
+                        <ng-template #uneditable>
+                            <span id="{{facfield.colid}}">{{facfield.labelname}}: </span>
+                        </ng-template>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

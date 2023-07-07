@@ -1,0 +1,166 @@
+<div class="legend">
+  <legend>Legend
+    <i class="bi bi-square-fill new"></i>New
+    <i class="bi bi-square-fill accepted"></i>Accepted
+    <i class="bi bi-square-fill picking_up"></i>Picking Up
+    <i class="bi bi-square-fill reached_pickup"></i>Reached Pickup
+    <i class="bi bi-square-fill started_ride"></i>Started Ride
+    <i class="bi bi-square-fill reached_dropoff"></i>Reached Dropoff
+    <i class="bi bi-square-fill cancelled"></i>Cancelled
+    <i class="bi bi-square-fill expired"></i>Expired
+  </legend>
+</div>
+<table class="container schedule-content">
+  <tr>
+      <td id="schedule-1" class="{{sched1expand}}">
+          <table class="table table-hover sched1table">
+            <thead>
+            <tr class="table-primary">
+              <th scope="col" *ngFor="let schedcol of schedcols" class="{{schedcol.colclass}}">
+                {{schedcol.colname}}<br />
+                <input type="text" class="{{schedcol.filter}}" [(ngModel)]="schedcol.colfilters" (keyup)="filterScheds()" />
+                <i class="bi bi-sort-{{schedcol.sortorder}} clickable" (click)="sortScheds(schedcol.colid, schedcol.sortorder)"></i>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let sched of sched_data" (click)="onShowDetails(sched)" class="clickable {{sched.filtered?'filtered':'unfiltered'}}">
+              <td *ngFor="let schedcol of schedcols" class="{{schedcol.colclass}}">{{(schedcol.colid==="status")?"":sched[schedcol.colid]}}
+                <i *ngIf="schedcol.colid==='status'" class="bi bi-square-fill {{sched.status.toLowerCase().replace(' ','_')}}"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="onNewSchedule()"></i></div>
+      </td>
+      <td id="schedule-toggle" class="clickable {{sched2expand}}" (click)="scheduleToggle()"><i class="bi bi-chevron-double-right"></i></td>
+      <td id="schedule-2" class="{{sched2expand}}">
+        <table class="data-info">
+          <tr>
+            <td colspan="3" class="detailheader"><h3>{{sched2header}}</h3></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Schedule</td>
+            <td colspan="2"><span class="infovalue {{schedEditable}}">{{temp_sched.sched_date}}</span>
+            <input type="datetime-local" class="editbutton {{schedEditable}}" [(ngModel)]="temp_sched.sched_date" /></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Patient ID</td>
+            <td><span class="infovalue">{{temp_sched.patient_id}}</span></td>
+            <td class="infoedit"><i class="bi bi-binoculars editbutton {{schedEditable}} clickable"  onclick="document.getElementById('patientform').showModal();"></i></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Patient Name</td>
+            <td colspan="2"><span class="infovalue">{{temp_sched.patient_name}}</span></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Type</td>
+            <td><span class="infovalue {{schedEditable}}">{{temp_sched.sched_type}}</span>
+            <select class="editbutton {{schedEditable}} form-select" [(ngModel)]="temp_sched.sched_type">
+              <option *ngFor="let sched_type of sched_types">{{sched_type}}</option>
+            </select></td>
+            <td class="infoedit"></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Location</td>
+            <td><span class="infovalue">{{temp_sched.location}}</span></td>
+            <td class="infoedit"><i class="bi bi-search editbutton {{schedEditable}} clickable" onclick="document.getElementById('mapform').showModal();"></i></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Destination</td>
+            <td><span class="infovalue">{{temp_sched.destination}}</span></td>
+            <td class="infoedit"><i class="bi bi-search editbutton {{schedEditable}} clickable" onclick="document.getElementById('mapform').showModal();"></i></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Status</td>
+            <td colspan="2"><span class="infovalue">{{temp_sched.status}}</span></td>
+          </tr>
+          <tr>
+            <td class="infolabel">Last Modified</td>
+            <td colspan="2"><span class="infovalue">{{temp_sched.last_modified}}</span></td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <i class="bi {{editSchedButton?'bi-save':'bi-pencil-square'}} clickable" (click)="onEditSchedule(editSchedButton?'save':'edit')"></i>
+              <i class="bi bi-x-octagon clickable {{editSchedButton?'showbutton':'hidebutton'}}" (click)="onEditSchedule('cancel')"></i>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td id="schedule-3">
+        <table class="map-table {{showMap}}">
+          <tr>
+            <td class="infolabel">Estimated Travel Time</td>
+            <td class="infovalue">XX minutes</td>
+          </tr>
+          <tr>
+            <td colspan="2"><div *ngIf="sched1expandbool; else actualmap"><img id="worldmap" src="client/assets/world_map_placeholder.svg" /></div>
+            <ng-template #actualmap><img src="client/assets/google-map-address-location.jpg" /></ng-template></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+</table>
+<dialog id="mapform">
+  <table class="map-table">
+    <tr>
+      <td class="infolabel">Location Address</td>
+      <td class="infovalue"><input type="text" /></td>
+    </tr>
+    <tr>
+      <td class="infolabel">Location Coordinates</td>
+      <td class="infovalue">41°24'12.2"N 2°10'26.5"E</td>
+    </tr>
+    <tr>
+      <td colspan="2"><img src="client/assets/google-map-address-location.jpg" /></td>
+    </tr>
+    <tr>
+      <td><i class="bi bi-save clickable"></i></td>
+      <td><i class="bi bi-x-octagon clickable" onclick="document.getElementById('mapform').close();"></i></td>
+    </tr>
+  </table>
+</dialog>
+<dialog id="patientform">
+  <div id="patientlist" class="{{showpatientlist?'showpatientlist':'hidepatientlist'}}">
+    <div class="card-header dialogheader"><i class="bi bi-x-octagon clickable" (click)="closePatientForm()"></i></div>
+    <table class="table table-hover" style="text-align:center;">
+      <thead>
+      <tr class="table-primary">
+          <th *ngFor="let patientcol of patientcols" scope="col" class="{{patientcol.colclass}}">{{patientcol.colname}}<br /><input type="text" class="{{patientcol.filter}}" [(ngModel)]="patientcol.colfilters" (keyup)="filterPatients()" /><i class="bi bi-sort-{{patientcol.sortorder}} clickable" (click)="sortPatients(patientcol.colid, patientcol.sortorder)"></i></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let pdata of patient_data" class="clickable {{pdata.filtered?'filtered':'unfiltered'}}">
+          <td *ngFor="let patientcol of patientcols">{{pdata[patientcol.colid]}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="addPatientForm()"></i></div>
+  </div>
+  <div id="addpatientform" class="{{showpatientlist?'hidepatientform':'showpatientform'}}">
+    <form>
+      <table>
+        <tr *ngFor="let pfield of patient_fields">
+          <td><label for="pform-{{pfield.field_id}}">{{pfield.field_label}}</label></td>
+          <td [ngSwitch]="pfield.field_type" *ngIf="pfield.field_edit">
+            <textarea *ngSwitchCase="'textarea'" id="pform-{{pfield.field_id}}" class="form-control"></textarea>
+            <select *ngSwitchCase="'select'" id="pform-{{pfield.field_id}}" class="form-select"></select>
+            <input *ngSwitchDefault id="pform-{{pfield.field_id}}" type="{{pfield.field_type}}" class="form-control" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="useNewPatient" checked="">
+            <label class="form-check-label" for="useNewPatient">
+              Set Patient in Schedule
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td><i class="bi bi-save clickable"></i></td>
+          <td><i class="bi bi-x-octagon clickable" onclick="document.getElementById('patientform').close();"></i></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</dialog>

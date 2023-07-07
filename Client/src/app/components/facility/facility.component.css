@@ -1,0 +1,14 @@
+.facilitysubdiv{
+    max-width:800px;
+}
+#facilitydiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-header{
+    width: 800px;
+}
+.card-body{
+    width: 800px;
+}

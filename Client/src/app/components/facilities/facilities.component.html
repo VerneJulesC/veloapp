@@ -1,0 +1,43 @@
+<table class="container facilities-content">
+    <tr>
+        <td id="facilities-1" class="{{fac1expand}}">
+            <table class="table table-hover fac1table">
+                <thead>
+                <tr class="table-primary">
+                <th scope="col" *ngFor="let facilitycol of facilitycols" class="{{facilitycol.colclass}}">
+                    {{facilitycol.colname}}<br />
+                    <input type="text" class="{{facilitycol.filter}}" />
+                    <i class="bi bi-sort-{{facilitycol.sortorder}} clickable" (click)="sortfacilities(facilitycol.colid, facilitycol.sortorder)"></i>
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clickable" *ngFor="let fac of fac_data" (click)="onShowDetails(fac)" class="{{fac.rowclass}}">
+                <td *ngFor="let facilitycol of facilitycols" class="{{facilitycol.colclass}}">{{fac[facilitycol.colid]}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="addbutton"><i class="bi bi-plus-circle-fill clickable" (click)="onAddfacility()"></i></div>
+        </td>
+        <td id="facilities-toggle" class="clickable {{fac2expand}}" (click)="facilitiesToggle()"><i class="bi bi-chevron-double-right"></i></td>
+        <td id="facilities-2" class="{{fac2expand}}">
+            <table class="data-info">
+                <tr id="data-info-manage">
+                  <td colspan="3">
+                    <i class="bi {{editFacButton?'bi-save':'bi-pencil-square'}} clickable" (click)="onEditfacility(editFacButton?'save':'edit')"></i>
+                    <i class="bi bi-x-octagon clickable {{editFacButton?'showbutton':'hidebutton'}}" (click)="onEditfacility('cancel')"></i>
+                  </td>
+                </tr>
+                <tr *ngFor="let facfield of facdetails">
+                  <td class="infolabel">{{facfield.labelname}}</td>
+                  <td colspan="2" [ngSwitch]="facfield.fieldtype">
+                    <span class="infovalue {{facEditable}}">{{slctd_fac[facfield.colid]}}</span>
+                    <textarea *ngSwitchCase="'textarea'" id="dform-{{facfield.field_id}}" class="form-control {{facEditable}}" [(ngModel)]="temp_fac[facfield.colid]" ></textarea>
+                    <select *ngSwitchCase="'select'" id="dform-{{facfield.field_id}}" class="form-select {{facEditable}}" [(ngModel)]="temp_fac[facfield.colid]" ></select>
+                    <input *ngSwitchDefault id="pform-{{facfield.field_id}}" type="{{facfield.field_type}}" class="form-control {{facEditable}}" [(ngModel)]="temp_fac[facfield.colid]" />
+                  </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

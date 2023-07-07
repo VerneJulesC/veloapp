@@ -1,0 +1,14 @@
+.doctorsubdiv{
+    max-width:800px;
+}
+#doctordiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-header{
+    width: 800px;
+}
+.card-body{
+    width: 800px;
+}

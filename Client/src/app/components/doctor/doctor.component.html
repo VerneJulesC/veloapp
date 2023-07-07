@@ -1,0 +1,27 @@
+<div id="doctordiv">
+    <div class="doctorsubdiv">
+        <h3 class="card-header">Doctor Details</h3>
+        <div class="card-body">
+            <form class="doctorform">
+                <fieldset>
+                    <div *ngFor="let docfield of docdetails">
+                        <div *ngIf="docfield.editable; else uneditable">
+                            <label for="{{docfield.colid}}" class="form-label mt-4">{{docfield.labelname}}</label>
+                            <div *ngIf="docfield.fieldtype==='textarea'; else nontextarea">
+                                <textarea id="{{docfield.colid}}" class="form-control"></textarea>
+                            </div>
+                            <ng-template #nontextarea>
+                                <input id="{{docfield.colid}}" name="{{docfield.colid}}" type="{{docfield.fieldtype}}" class="form-control" />
+                            </ng-template>
+                        </div>
+                        <ng-template #uneditable>
+                            <span id="{{docfield.colid}}">{{docfield.labelname}}: </span>
+                        </ng-template>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.settingssubdiv{
+    max-width:800px;
+}
+#settingsdiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-header{
+    width: 800px;
+}
+.card-body{
+    width: 800px;
+}

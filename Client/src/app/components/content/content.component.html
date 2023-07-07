@@ -1,0 +1,13 @@
+<app-header (messageEvent)="recieveMessage($event)" [userRole]="userRole"></app-header>
+<div [ngSwitch]="currentPage">
+<app-schedules *ngSwitchCase="'schedules'"></app-schedules>
+<app-doctors *ngSwitchCase="'doctors'"></app-doctors>
+<app-doctor *ngSwitchCase="'doctor'"></app-doctor>
+<app-facilities *ngSwitchCase="'facilities'"></app-facilities>
+<app-facility *ngSwitchCase="'facility'"></app-facility>
+<app-patients *ngSwitchCase="'patients'"></app-patients>
+<app-users *ngSwitchCase="'users'"></app-users>
+<app-settings *ngSwitchCase="'settings'"></app-settings>
+<!-- <app-usersettings *ngSwitchCase="'usersettings'"></app-usersettings>
+<app-loggedout *ngSwitchCase="'loggedout'"></app-loggedout> -->
+</div>

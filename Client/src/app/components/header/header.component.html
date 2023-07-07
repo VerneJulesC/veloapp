@@ -1,0 +1,59 @@
+<header class="bg-primary">
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <a href="#" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src="client/assets/rv.png" height="50" width="50" /><br />
+            </a>
+          </div>
+    
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" style="text-align:center;">
+            <li *ngFor="let navpage of pageslist" class="nav-item">
+              <a class="nav-link btn btn-primary {{navpage.activepage}} text-white" href="#" (click)="goToPage(navpage.page_id)">
+                <i class="bi {{navpage.page_icon}}"></i><br />
+                {{navpage.page_name}}
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-database"></i><br />
+                  Database
+              </a>
+              <div class="dropdown-menu scrollable-menu">
+                <a class="dropdown-item" href="#">FastCare</a>
+                <a class="dropdown-item" href="#">Aris</a>
+                <a class="dropdown-item" href="#">GetwellMedcare</a>
+                <a class="dropdown-item" href="#">Bell</a>
+                <a class="dropdown-item" href="#">Gorum</a>
+                <a class="dropdown-item" href="#">DrLefcort</a>
+                <a class="dropdown-item" href="#">Uptown</a>
+                <a class="dropdown-item" href="#">Test</a>
+                <a class="dropdown-item" href="#">BrooklynMedicalServices</a>
+                <a class="dropdown-item" href="#">HirschornLawFirm</a>
+                <a class="dropdown-item" href="#">QueensChiropraticAssociates</a>
+                <a class="dropdown-item" href="#">WellnessDiagnosticImagingPC</a>
+                <a class="dropdown-item" href="#">QueensWoundAndMedicalCarePc</a>
+                <a class="dropdown-item" href="#">OrthoUrgentCare</a>
+                <a class="dropdown-item" href="#">FCLaw</a>
+                <a class="dropdown-item" href="#">R_ZakariaPhysicianPLLC</a>
+                <a class="dropdown-item" href="#">PaincareNYC</a>
+              </div>
+            </li>
+          </ul>
+    
+          <div class="col-md-3 text-white">
+            <a class="nav-link dropdown-toggle" style="text-align:center; width:120px;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg><br />
+                Profile
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" (click)="goToPage('settings')">User Settings</a>
+                <a class="dropdown-item" href="#" (click)="goToPage('logout')">Logout</a>
+            </div>
+          </div>
+        </header>
+      </div>
+  </header>

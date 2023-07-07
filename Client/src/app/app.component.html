@@ -1,0 +1,4 @@
+<div>
+<ng-container *ngIf="loginuser.loggedin; else loggedout"><app-content (logoutUser)="logoutUser($event)" [userRole]="loginuser.roles"></app-content></ng-container>
+<ng-template #loggedout><app-login (loginUser)="loginUser($event)"></app-login></ng-template>
+</div>
