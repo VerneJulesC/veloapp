@@ -13,7 +13,7 @@ export class TokenInterceptorService {
     let authService = this.injector.get(AuthService);
     let tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${authService.getToken()} ${authService.getUsername()}`
+        Authorization: `Bearer ${authService.getToken()} ${authService.getRToken()}`
       }
     });
     return next.handle(tokenizedReq);

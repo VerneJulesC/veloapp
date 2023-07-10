@@ -107,6 +107,7 @@ export class FacilitiesComponent implements OnInit {
     }
     this.facEditable = 'facEditable';
     this.editFacButton = true;
+    this.retractFac1();
   }
 
   onEditfacility(editaction: string){

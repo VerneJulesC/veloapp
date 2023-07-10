@@ -107,6 +107,7 @@ export class PatientsComponent implements OnInit {
     }
     this.patEditable = 'patEditable';
     this.editPatButton = true;
+    this.retractPat1();
   }
 
   onEditPatient(editaction: string){

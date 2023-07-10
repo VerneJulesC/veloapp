@@ -87,17 +87,21 @@ export class SchedulesComponent implements OnInit {
     {patient_id: 'XXY', patient_fname: 'DDD', patient_lname: 'FFF', patient_mname: 'EEE',  patient_address: '', patient_email: '', patient_city: '', patient_state: '', patient_zip: '', patient_phone: '', filtered: false},
     {patient_id: 'XXZ', patient_fname: 'GGG', patient_lname: 'III', patient_mname: 'HHH',  patient_address: '', patient_email: '', patient_city: '', patient_state: '', patient_zip: '', patient_phone: '', filtered: false}*/
   ];
+  temp_patient: any = { patient_id: 0, doctor_id: null, patient_fname: '', patient_lname: '', patient_mname: '', patient_address: '', patient_email: '', patient_city: '', patient_state: '', patient_zip: '', patient_phone: '', filtered: false };
+  blank_patient: any = { patient_id: 0, doctor_id: null, patient_fname: '', patient_lname: '', patient_mname: '', patient_address: '', patient_email: '', patient_city: '', patient_state: '', patient_zip: '', patient_phone: '', filtered: false };
   patient_fields: any = [
     {field_id: 'patient_id', field_label: 'Patient ID', field_type: 'text', field_edit: false},
     {field_id: 'patient_fname', field_label: 'First Name', field_type: 'text', field_edit: true},
     {field_id: 'patient_lname', field_label: 'Last Name', field_type: 'text', field_edit: true},
     {field_id: 'patient_mname', field_label: 'Middle Name', field_type: 'text', field_edit: true},
+    {field_id: 'patient_sex', field_label: 'Sex', field_type: 'radio', field_edit: true},
+    {field_id: 'patient_bdate', field_label: 'Birthdate', field_type: 'date', field_edit: true},
     {field_id: 'patient_address', field_label: 'Address', field_type: 'textarea', field_edit: true},
-    {field_id: 'patient_email', field_label: 'Email', field_type: 'email', field_edit: true},
     {field_id: 'patient_city', field_label: 'City', field_type: 'text', field_edit: true},
     {field_id: 'patient_state', field_label: 'State', field_type: 'text', field_edit: true},
     {field_id: 'patient_zip', field_label: 'Zip', field_type: 'text', field_edit: true},
-    {field_id: 'patient_phone', field_label: 'Phone Number', field_type: 'text', field_edit: true}
+    {field_id: 'patient_phone', field_label: 'Phone Number', field_type: 'text', field_edit: true},
+    {field_id: 'patient_email', field_label: 'Email', field_type: 'email', field_edit: true}
   ];
 
   constructor(private _velo: VeloService) { }
@@ -117,6 +121,41 @@ export class SchedulesComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+
+  saveNewPatient() {
+    let newpatient = {
+      patient_id: null,
+      doctor_id: null,
+      patient_doctor: "",
+      patient_fname: this.temp_patient.patient_fname,
+      patient_mname: this.temp_patient.patient_mname,
+      patient_lname: this.temp_patient.patient_lname,
+      patient_address: this.temp_patient.patient_address,
+      patient_coordinates: null,
+      patient_city: this.temp_patient.patient_city,
+      patient_state: this.temp_patient.patient_state,
+      patient_zip: this.temp_patient.patient_zip,
+      patient_bdate: this.temp_patient.patient_bdate,
+      patient_sex: this.temp_patient.patient_sex,
+      patient_phone: this.temp_patient.patient_phone,
+      patient_email: this.temp_patient.patient_email
+    };
+    this._velo.addPatient(newpatient).subscribe(
+      res => {
+        this.temp_patient.patient_id = res;
+        console.log(this.temp_patient);
+      },
+      err => console.log(err)
+    );
+    this._velo.getPatients().subscribe(
+      res => {
+        this.patient_data = res;
+        console.log(this.patient_data);
+      },
+      err => console.log(err)
+    );
+    this.closePatientForm();
   }
 
   retractSched1(){
@@ -275,7 +314,8 @@ export class SchedulesComponent implements OnInit {
     patientform.close();
   }
 
-  addPatientForm(){
+  addPatientForm() {
+    this.temp_patient = structuredClone(this.blank_patient);
     this.showpatientlist = !this.showpatientlist;
   }
 

@@ -110,6 +110,7 @@ export class DoctorsComponent implements OnInit {
     }
     this.docEditable = 'docEditable';
     this.editDocButton = true;
+    this.retractDoc1();
   }
 
   onEditDoctor(editaction: string){

@@ -143,9 +143,9 @@
         <tr *ngFor="let pfield of patient_fields">
           <td><label for="pform-{{pfield.field_id}}">{{pfield.field_label}}</label></td>
           <td [ngSwitch]="pfield.field_type" *ngIf="pfield.field_edit">
-            <textarea *ngSwitchCase="'textarea'" id="pform-{{pfield.field_id}}" class="form-control"></textarea>
-            <select *ngSwitchCase="'select'" id="pform-{{pfield.field_id}}" class="form-select"></select>
-            <input *ngSwitchDefault id="pform-{{pfield.field_id}}" type="{{pfield.field_type}}" class="form-control" />
+            <textarea *ngSwitchCase="'textarea'" [(ngModel)]="temp_patient[pfield.field_id]" id="pform-{{pfield.field_id}}" class="form-control"></textarea>
+            <select *ngSwitchCase="'select'" [(ngModel)]="temp_patient[pfield.field_id]" id="pform-{{pfield.field_id}}" class="form-select"></select>
+            <input *ngSwitchDefault [(ngModel)]="temp_patient[pfield.field_id]" id="pform-{{pfield.field_id}}" type="{{pfield.field_type}}" class="form-control" />
           </td>
         </tr>
         <tr>
@@ -157,8 +157,8 @@
           </td>
         </tr>
         <tr>
-          <td><i class="bi bi-save clickable"></i></td>
-          <td><i class="bi bi-x-octagon clickable" onclick="document.getElementById('patientform').close();"></i></td>
+          <td><i class="bi bi-save clickable" (click)="saveNewPatient()"></i></td>
+          <td><i class="bi bi-x-octagon clickable" (click)="closePatientForm()"></i></td>
         </tr>
       </table>
     </form>

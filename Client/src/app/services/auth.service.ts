@@ -6,27 +6,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private _createUserUrl = "http://localhost:5000/api/createUser";
-  private _verifyLoginUrl = "http://localhost:5000/api/verifyLogin";
-  private _checkLoginUrl = "http://localhost:5000/api/checkLogin";
-  private _getUsersUrl = "http://localhost:5000/api/users";
+  private _loginURL = "./api/login";
+  private _usersURL = "./api/user";
   constructor(private http: HttpClient) { }
 
   createUser(user: any){
-    return this.http.post<any>(this._createUserUrl, user);
+    return this.http.post<any>(this._usersURL, user);
   }
 
-  verifyLogin(user: any){
-    console.log('doing something...');
-    return this.http.post<any>(this._verifyLoginUrl, user);
+  verifyLogin(user: any) {
+    return this.http.post<any>(this._loginURL, user);
   }
 
   verifyLoggedIn(user: any){
-    return this.http.post<any>(this._checkLoginUrl, user);
+    return this.http.post<any>(this._loginURL+"/"+ user.username, user);
   }
 
-  getUsers(){
-    return this.http.get<any>(this._getUsersUrl);
+  getUsers() {
+    return this.http.get<any>(this._usersURL);
   }
 
   getToken(){
@@ -35,6 +32,10 @@ export class AuthService {
 
   getUsername(){
     return localStorage.getItem('username');
+  }
+
+  getRToken() {
+    return localStorage.getItem('rtoken');
   }
   
 }
